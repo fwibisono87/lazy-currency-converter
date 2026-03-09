@@ -11,8 +11,10 @@ services:
     environment:
       PORT: 8787
       EXCHANGE_RATE_TTL_HOURS: ${EXCHANGE_RATE_TTL_HOURS:-48}
+      EXTENSION_DIR: /app/extension
     volumes:
       - lcc_server_cache:/app/data
+      - ./extension:/app/extension:ro
 
 volumes:
   lcc_server_cache:

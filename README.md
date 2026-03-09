@@ -47,6 +47,7 @@ Server endpoints:
 
 - `GET /health`
 - `GET /api/convert?amount=79200&from=JPY&to=USD`
+- `GET /extension` (downloads a ZIP of the extension folder)
 
 ## 3) Run with Docker (VPS)
 
@@ -62,6 +63,8 @@ docker run -d \
   --env-file .env \
   -p 8787:8787 \
   -v lcc_server_cache:/app/data \
+  -v "$(pwd)/extension:/app/extension:ro" \
+  -e EXTENSION_DIR=/app/extension \
   lazy-currency-converter-server
 ```
 

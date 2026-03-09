@@ -1,8 +1,10 @@
 const http = require("node:http");
+const path = require("node:path");
 const { URL } = require("node:url");
 const { CacheStore } = require("./cache-store");
 const { getConfig, loadEnv } = require("./config");
 const { ExchangeRateClient } = require("./exchange-rate-client");
+const { ExtensionZipProvider } = require("./extension-download");
 
 loadEnv();
 const config = getConfig();
@@ -20,6 +22,10 @@ const exchangeClient = new ExchangeRateClient({
   ttlMs: config.ttlMs,
   cacheStore
 });
+const extensionDir = process.env.EXTENSION_DIR
+  ? path.resolve(process.cwd(), process.env.EXTENSION_DIR)
+  : path.resolve(__dirname, "..", "..", "extension");
+const extensionZipProvider = new ExtensionZipProvider(extensionDir);
 
 function setCorsHeaders(response) {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -74,8 +80,40 @@ async function handleRequest(request, response) {
       ok: true,
       service: "lazy-currency-converter-server",
       cacheFile: config.cacheFile,
-      ttlHours: config.ttlHours
+      ttlHours: config.ttlHours,
+      extensionDir
     });
+    return;
+  }
+
+  if (request.method === "GET" && requestUrl.pathname === "/extension") {
+    const exists = await extensionZipProvider.exists();
+    if (!exists) {
+      sendJson(response, 404, {
+        ok: false,
+        error:
+          "Extension directory not found on server. Set EXTENSION_DIR to a valid folder."
+      });
+      return;
+    }
+
+    try {
+      const zipBuffer = await extensionZipProvider.getZip();
+      response.statusCode = 200;
+      response.setHeader("Content-Type", "application/zip");
+      response.setHeader(
+        "Content-Disposition",
+        'attachment; filename="lazy-currency-converter-extension.zip"'
+      );
+      response.setHeader("Content-Length", String(zipBuffer.length));
+      response.end(zipBuffer);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      sendJson(response, 500, {
+        ok: false,
+        error: `Failed to package extension: ${message}`
+      });
+    }
     return;
   }
 
@@ -164,6 +202,7 @@ async function bootstrap() {
     );
     console.log(`TTL: ${config.ttlHours} hours`);
     console.log(`Cache file: ${config.cacheFile}`);
+    console.log(`Extension dir: ${extensionDir}`);
   });
 }
 
