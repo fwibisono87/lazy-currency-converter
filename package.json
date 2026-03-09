@@ -1,0 +1,9 @@
+{
+  "name": "lazy-currency-converter",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "server": "npm --prefix server run start",
+    "server:dev": "npm --prefix server run dev"
+  }
+}

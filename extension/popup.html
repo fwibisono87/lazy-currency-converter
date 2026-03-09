@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lazy Currency Converter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lazy Currency Converter</h1>
+
+      <form id="settingsForm">
+        <label for="targetCurrency">Target Currency</label>
+        <select id="targetCurrency" required></select>
+
+        <label class="toggle-row" for="autoConvert">
+          <input id="autoConvert" type="checkbox" />
+          <span>Auto-convert</span>
+        </label>
+        <p class="hint">
+          Automatically convert all detected amounts in place.
+        </p>
+
+        <div class="section-title">Auto-convert Domain Rules</div>
+        <label for="domainWhitelist">Domain Whitelist (optional)</label>
+        <textarea
+          id="domainWhitelist"
+          rows="2"
+          placeholder="example.com&#10;shop.example.com"
+        ></textarea>
+        <label for="domainBlacklist">Domain Blacklist (optional)</label>
+        <textarea
+          id="domainBlacklist"
+          rows="2"
+          placeholder="private.example.com"
+        ></textarea>
+
+        <div class="section-title">Auto-convert Currency Rules</div>
+        <label for="currencyWhitelist">Currency Whitelist (optional)</label>
+        <textarea
+          id="currencyWhitelist"
+          rows="2"
+          placeholder="JPY, USD"
+        ></textarea>
+        <label for="currencyBlacklist">Currency Blacklist (optional)</label>
+        <textarea
+          id="currencyBlacklist"
+          rows="2"
+          placeholder="IDR"
+        ></textarea>
+
+        <label for="serverBaseUrl">Server URL</label>
+        <input
+          id="serverBaseUrl"
+          type="url"
+          required
+          placeholder="http://localhost:8787"
+        />
+
+        <button type="submit">Save Settings</button>
+      </form>
+
+      <p id="status" aria-live="polite"></p>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

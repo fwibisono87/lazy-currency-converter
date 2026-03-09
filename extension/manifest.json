@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Lazy Currency Converter",
+  "version": "0.1.0",
+  "description": "Detect currency amounts on pages and convert them on demand.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Lazy Currency Converter",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

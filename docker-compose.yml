@@ -1,0 +1,18 @@
+services:
+  lazy-currency-converter-server:
+    build:
+      context: ./server
+    container_name: lazy-currency-converter-server
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    env_file:
+      - ./.env
+    environment:
+      PORT: 8787
+      EXCHANGE_RATE_TTL_HOURS: ${EXCHANGE_RATE_TTL_HOURS:-48}
+    volumes:
+      - lcc_server_cache:/app/data
+
+volumes:
+  lcc_server_cache:

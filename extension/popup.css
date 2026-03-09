@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+  background: #f4f6f8;
+  color: #1f2933;
+}
+
+.container {
+  padding: 14px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-family: "Michroma", "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+form {
+  display: grid;
+  gap: 8px;
+}
+
+label {
+  font-size: 12px;
+  color: #52606d;
+}
+
+.section-title {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #7b8794;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "Michroma", "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #1f2933;
+}
+
+.toggle-row input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.hint {
+  margin: -4px 0 4px;
+  font-size: 11px;
+  color: #7b8794;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  background: #ffffff;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 12px;
+  resize: vertical;
+}
+
+button {
+  margin-top: 2px;
+  padding: 8px;
+  border: 0;
+  border-radius: 6px;
+  background: #1f6feb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#status {
+  margin: 10px 0 0;
+  font-size: 12px;
+  min-height: 16px;
+  color: #1f6feb;
+}
